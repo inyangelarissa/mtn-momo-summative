@@ -1,9 +1,10 @@
+/* Reset default margins and paddings, use border-box model for all elements */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
+/* Basic body styling */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f8f8f8;
@@ -11,7 +12,7 @@ body {
     line-height: 1.6;
     min-height: 100vh;
 }
-
+/* Container for the main layout content */
 .container {
     max-width: 1400px;
     margin: 0 auto;
@@ -20,7 +21,7 @@ body {
     grid-template-columns: 1fr;
     gap: 30px;
 }
-
+/* Header styling with gradient background and animated glow */
 header {
     text-align: center;
     background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
@@ -31,7 +32,7 @@ header {
     position: relative;
     overflow: hidden;
 }
-
+/* Header glow animation overlay */
 header::before {
     content: '';
     position: absolute;
@@ -92,7 +93,7 @@ header p {
     color: #000000;
     transition: all 0.3s;
 }
-
+/* Input focus styles */
 .search-filter input:focus,
 .search-filter select:focus {
     outline: none;
