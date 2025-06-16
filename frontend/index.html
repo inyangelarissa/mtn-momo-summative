@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoMo Data Analysis Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="main-layout">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-circle">💳</div>
+                <h2>MoMo</h2>
+            </div>
+            <ul class="sidebar-nav">
+                <li class="nav-item active" data-screen="dashboardScreen">Dashboard</li>
+                <li class="nav-item" data-screen="insightsScreen">Insights</li>
+                <li class="nav-item" data-screen="tipsScreen">Tips</li>
+                <li class="nav-item" data-screen="helpScreen">Help</li>
+            </ul>
+        </nav>
+        <div class="container">
+            <!-- Dashboard Screen (original content) -->
+            <section id="dashboardScreen" class="screen-section active">
+                <header>
+                    <h1>MoMo Data Analysis Dashboard</h1>
+                    <p>Interactive dashboard for analyzing MTN Mobile Money SMS data</p>
+                </header>
+
+                <div class="controls">
+                    <div class="search-filter">
+                        <input type="text" id="searchInput" placeholder="Search transactions...">
+                        <select id="categoryFilter">
+                            <option value="">All Categories</option>
+                            <option value="Incoming Money">Incoming Money</option>
+                            <option value="Payments to Code Holders">Payments to Code Holders</option>
+                            <option value="Transfers to Mobile Numbers">Transfers to Mobile Numbers</option>
+                            <option value="Bank Deposits">Bank Deposits</option>
+                            <option value="Airtime Bill Payments">Airtime Bill Payments</option>
+                            <option value="Internet and Voice Bundle Purchases">Internet and Voice Bundle Purchases</option>
+                            <option value="Withdrawals from Agents">Withdrawals from Agents</option>
+                            <option value="Transactions Initiated by Third Parties">Transactions Initiated by Third Parties</option>
+                        </select>
+                        <input type="date" id="dateFrom" placeholder="From Date">
+                        <input type="date" id="dateTo" placeholder="To Date">
+                        <button id="filterBtn">Filter</button>
+                        <button id="resetBtn">Reset</button>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="chart-container">
+                        <h3>Transaction Volume by Type</h3>
+                        <canvas id="volumeChart"></canvas>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <h3>Monthly Transaction Summary</h3>
+                        <canvas id="monthlyChart"></canvas>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <h3>Payment Distribution</h3>
+                        <canvas id="distributionChart"></canvas>
+                    </div>
+                    
+                    <div class="stats-container">
+                        <h3>Summary Statistics</h3>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <span class="stat-value" id="totalTransactions">0</span>
+                                <span class="stat-label">Total Transactions</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value" id="totalAmount">0 RWF</span>
+                                <span class="stat-label">Total Amount</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value" id="avgAmount">0 RWF</span>
+                                <span class="stat-label">Average Amount</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="transactions-table">
+                    <h3>Transaction Details</h3>
+                    <div class="table-container">
+                        <table id="transactionsTable">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Category</th>
+                                    <th>Amount (RWF)</th>
+                                    <th>Transaction ID</th>
+                                    <th>Details</th>
+                                </tr>
+                            </thead>
+                            <tbody id="transactionsBody">
+                                <!-- Transactions will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Modal for transaction details -->
+                <div id="detailModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <h3>Transaction Details</h3>
+                        <div id="modalBody"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Insights Screen -->
+            <section id="insightsScreen" class="screen-section">
+                <header>
+                    <h1>Insights</h1>
+                    <p>Discover interesting patterns and trends in your MoMo transactions.</p>
+                </header>
+                <div class="insights-content">
+                    <div class="insight-card">
+                        <h3>Did you know?</h3>
+                        <p>Most of your transactions happen on <b>Fridays</b>! Consider planning your payments for better budgeting.</p>
+                    </div>
+                    <div class="insight-card">
+                        <h3>Spending Tip</h3>
+                        <p>Your highest spending category is <b>Airtime Bill Payments</b>. Track your usage to save more.</p>
+                    </div>
+                    <div class="insight-card">
+                        <h3>Fun Fact</h3>
+                        <p>The average transaction amount is <b>2,500 RWF</b>. Keep an eye on your daily spending!</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tips Screen -->
+            <section id="tipsScreen" class="screen-section">
+                <header>
+                    <h1>Money Tips</h1>
+                    <p>Simple tips to help you manage your mobile money better.</p>
+                </header>
+                <ul class="tips-list">
+                    <li>Set a weekly budget and stick to it.</li>
+                    <li>Review your transaction history every month.</li>
+                    <li>Use MoMo for secure payments and transfers.</li>
+                    <li>Be cautious of phishing SMS and scams.</li>
+                    <li>Take advantage of MoMo promotions and cashback offers.</li>
+                </ul>
+            </section>
+
+            <!-- About Screen -->
+            <section id="aboutScreen" class="screen-section">
+                <header>
+                    <h1>About</h1>
+                    <p>This dashboard helps you analyze and optimize your MTN Mobile Money transactions with beautiful charts and smart insights.</p>
+                </header>
+                <div class="about-content">
+                    <p><b>Version:</b> 1.0</p>
+                    <p><b>Created by:</b> Your Team</p>
+                    <p><b>Contact:</b> support@example.com</p>
+                </div>
+            </section>
+
+            <!-- Help Screen -->
+            <section id="helpScreen" class="screen-section">
+                <header>
+                    <h1>Help & Support</h1>
+                    <p>Find answers to common questions and get support.</p>
+                </header>
+                <div class="help-content">
+                    <h3>How do I filter transactions?</h3>
+                    <p>Use the search and filter options at the top of the dashboard to find specific transactions.</p>
+                    <h3>How do I view transaction details?</h3>
+                    <p>Click the "Details" button in the transactions table to see more information about a transaction.</p>
+                    <h3>Need more help?</h3>
+                    <p>Email us at <b>support@example.com</b> for further assistance.</p>
+                </div>
+            </section>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+    // Simple navigation logic for screens
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.addEventListener('click', function() {
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            this.classList.add('active');
+            const screen = this.getAttribute('data-screen');
+            document.querySelectorAll('.screen-section').forEach(sec => sec.classList.remove('active'));
+            document.getElementById(screen).classList.add('active');
+        });
+    });
+    </script>
+</body>
+</html>
+
