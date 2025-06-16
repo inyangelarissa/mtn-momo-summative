@@ -12,6 +12,9 @@ This project analyzes MTN Mobile Money SMS transaction data using a full-stack a
  ## video walk through on our work, and it's  user friendly frontend  interface 
  https://youtu.be/IJRlDkNr9zA
 
+ ## this is our documentation google doc link
+ https://docs.google.com/document/d/1_gy2U3G4R5_ZerboiCiriuU5uQ3XTLOWhOhKSqYGTns/edit?tab=t.0
+
 ## Project Structure
 ```
 momo_data_analysis/
