@@ -9,7 +9,7 @@ This project analyzes MTN Mobile Money SMS transaction data using a full-stack a
 - Larissa Inyange
 - Chiagbanweghi Moses Peter
 
- ## video walk through on our work and the user friendly frontend  interface 
+ ## video walk through on our work, and it's  user friendly frontend  interface 
  https://youtu.be/IJRlDkNr9zA
 
 ## Project Structure
