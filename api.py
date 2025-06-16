@@ -4,11 +4,11 @@ from sqlalchemy import create_engine, func
 from sqlalchemy.orm import sessionmaker
 from database_setup import SMS
 import json
-
+#initialize Flask  app.
 app = Flask(__name__)
-CORS(app)
+CORS(app)   #Enable cross-origin resource sharing for all routes
 
-# Database setup
+# Database setup (which configures the SQLite database engine and session factory.
 engine = create_engine('sqlite:///sms_data.db')
 Session = sessionmaker(bind=engine)
 
@@ -16,16 +16,16 @@ Session = sessionmaker(bind=engine)
 def get_transactions():
     session = Session()
     
-    # Get query parameters
+    # Get query parameters and Extract from request.
     category = request.args.get('category')
     search = request.args.get('search')
     date_from = request.args.get('date_from')
     date_to = request.args.get('date_to')
     limit = request.args.get('limit', 100, type=int)
     
-    # Build query
+    # start Building the  query
     query = session.query(SMS)
-    
+    #Apply filters
     if category:
         query = query.filter(SMS.category == category)
     
@@ -45,7 +45,7 @@ def get_transactions():
         timestamp = int(date_obj.timestamp() * 1000) + 86400000  # Add 24 hours
         query = query.filter(SMS.timestamp <= timestamp)
     
-    # Execute query with limit
+    # Execute the query with  a limit
     transactions = query.limit(limit).all()
     
     # Convert to JSON-serializable format
@@ -70,7 +70,7 @@ def get_transactions():
 def get_statistics():
     session = Session()
     
-    # Get basic statistics
+    # Get basic statistics/global statics
     total_transactions = session.query(SMS).count()
     total_amount = session.query(func.sum(SMS.amount)).scalar() or 0
     avg_amount = session.query(func.avg(SMS.amount)).scalar() or 0
@@ -89,7 +89,7 @@ def get_statistics():
             'total_amount': stat.total_amount or 0
         }
     
-    # Get monthly data
+    # Get monthly data breakdown
     monthly_stats = session.query(
         func.strftime('%Y-%m', func.datetime(SMS.timestamp/1000, 'unixepoch')).label('month'),
         func.count(SMS.id).label('count'),
